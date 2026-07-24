@@ -1,6 +1,6 @@
 services:
   litepan:
-    image: ghcr.io/pelico/litepan:main
+    image: ghcr.io/pelico/litepan:latest
     container_name: litepan
     restart: unless-stopped
     ports:

@@ -23,6 +23,8 @@ LitePan 是一个多网盘聚合与管理工具，支持 Web 界面、WebDAV、S
 
 ## 快速启动
 
+### 使用 Docker Hub 镜像
+
 ```bash
 docker run -d \
   --name litepan \
@@ -35,6 +37,29 @@ docker run -d \
   -v ./strm:/app/strm \
   -v ./plugins:/app/plugins \
   ponphil/litepan:latest
+```
+
+### 使用 GHCR 镜像（Fork 版本）
+
+Fork 维护的镜像通过 GitHub Actions 自动构建，支持 `linux/amd64` 和 `linux/arm/v7` 多架构。
+
+```bash
+docker run -d \
+  --name litepan \
+  --restart unless-stopped \
+  -p 5211:5211 \
+  -e TZ=Asia/Shanghai \
+  -v ./data:/app/data \
+  -v ./log:/app/log \
+  -v ./strm:/app/strm \
+  -v ./plugins:/app/plugins \
+  ghcr.io/pelico/litepan:latest
+```
+
+也可以使用 Docker Compose：
+
+```bash
+docker compose -f docker-compose-ghcr.yml up -d
 ```
 
 浏览器访问：`http://localhost:5211`
