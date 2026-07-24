@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      platform: linux/arm/v7
     image: ponphil/litepan:latest
     container_name: litepan
     restart: unless-stopped

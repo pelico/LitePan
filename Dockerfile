@@ -17,12 +17,22 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    libc6-dev \
+    libffi-dev \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY requirements.txt ./
 RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ \
     && pip install --no-cache-dir -r requirements.txt \
     && rm -rf /root/.cache/pip \
     && find /usr/local/lib/python3.11 -name "*.pyc" -delete \
-    && find /usr/local/lib/python3.11 -name "__pycache__" -delete
+    && find /usr/local/lib/python3.11 -name "__pycache__" -delete \
+    && apt-get purge -y gcc libc6-dev libffi-dev python3-dev \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY . ./
 COPY --from=web-builder /build/web/static /app/web/static
