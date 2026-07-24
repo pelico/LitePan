@@ -1,0 +1,17 @@
+services:
+  litepan:
+    image: ghcr.io/pelico/litepan:main
+    container_name: litepan
+    restart: unless-stopped
+    ports:
+      - "5211:5211"
+      # Emby 反代端口需要按后台填写的端口额外映射，例如后台填 8098 时启用下一行
+      # - "8098:8098"
+    volumes:
+      - ./data:/app/data
+      - ./log:/app/log
+      - ./strm:/app/strm
+      - ./plugins:/app/plugins
+    environment:
+      TZ: Asia/Shanghai
+      # LITEPAN_WEB_HOST（可选）：（不设）先试 [::] 双栈失败则回落 0.0.0.0；设为 :: 强制双栈失败退出；其余按指定地址监听
