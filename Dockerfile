@@ -22,6 +22,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libc6-dev \
     libffi-dev \
     python3-dev \
+    zlib1g-dev \
+    libjpeg-dev \
+    libpng-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt ./
@@ -30,7 +33,7 @@ RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ \
     && rm -rf /root/.cache/pip \
     && find /usr/local/lib/python3.11 -name "*.pyc" -delete \
     && find /usr/local/lib/python3.11 -name "__pycache__" -delete \
-    && apt-get purge -y gcc libc6-dev libffi-dev python3-dev \
+    && apt-get purge -y gcc libc6-dev libffi-dev python3-dev zlib1g-dev libjpeg-dev libpng-dev \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
